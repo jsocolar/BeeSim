@@ -22,11 +22,11 @@ visitprob_type2 <- function(plant1, plant2, pref, rare){
 visitprob <- list(visitprob_type1, visitprob_type2)
 
 
-beesim <- function(bee_logmeans=c(0,0), bee_logsds=c(0,0), bee_mean_abunds=c(100,100), 
+beesim <- function(bee_logmeans=c(0,0), bee_logsds=c(0,0), bee_mean_abunds=c(250,250), 
                    plant_inits=c(500000,500000), n_years=100, visits_per_bee=c(25000,25000), 
                    pollen_transfer_probs=c(1,1,1,1,0.7,0.5,0.2), pollen2plant_prob=c(.2,.2), fixed=FALSE,
                    visitprobtype=1, rare_advantage=1, plotting=FALSE, EP=1000000, e21=1, e12=1,
-                   maxprob=.2, beefluct='none', r_times_k=.3, bee_plant_ratio = .0002){
+                   maxprob=.2, beefluct='none', r_times_k=.3, bee_plant_ratio = .0005){
   # Parameter description:
   #   bee preferences are lognormally distributed within species
   #       bee_logmeans gives the mean logarithm

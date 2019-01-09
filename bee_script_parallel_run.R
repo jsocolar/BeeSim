@@ -1,7 +1,6 @@
 # Function to call and run bee_script_updated in parallel on 4 cores.
 library(doParallel)
 
-
 run_beesim <- function(bee_logmean1, bee_logmean2, bee_logsd1, bee_logsd2, rare_advantage, EP, e21, e12, beefluct, bee_plant_ratio){
   n1 <- length(bee_logmean1)
   n2 <- length(bee_logmean2)
@@ -56,24 +55,18 @@ run_beesim <- function(bee_logmean1, bee_logmean2, bee_logsd1, bee_logsd2, rare_
   return(output)
 }
 
-bee_logmean1 <- c(0, 4, 10)
-bee_logmean2 <- c(-10, -4, 0, 4, 10)
-bee_logsd1 <- c(0, 1, 3)
-bee_logsd2 <- c(0, 1, 3)
-rare_advantage <- c(.1, .7, 1, 1.3)
-EP <- c(1000000)
-e21 <- c(0, .75, 1)
-e12 <- c(0, .75, 1, 1.5)
-beefluct <- c('none', 'independent', 'plant-based')
-bee_plant_ratio <- c(.0004)
-
-export_vars <- c('bee_logmean1', 'bee_logmean2', 'bee_logsd1', 'bee_logsd2', 'rare_advantage', 'EP', 'e21', 'e12',
-                 'beefluct', 'bee_plant_ratio')
+run_beesim_inputs <- list(bee_logmean1 = c(0, 4, 10), bee_logmean2 = c(-10, -4, 0, 4, 10), bee_logsd1 = c(0, 1, 3), bee_logsd2 = c(0, 1, 3), rare_advantage = c(.1, .7, 1, 1.3), EP = c(500000), e21 = c(0, .75, 1), e12 = c(0, .75, 1, 1.5), beefluct = c('none', 'independent', 'plant-based'), bee_plant_ratio = c(.001))
+run_beesim_inputs2 <- list(bee_logmean1 = c(0, 4, 10), bee_logmean2 = c(-10, -4, 0, 4, 10), bee_logsd1 = c(0, 1, 3), bee_logsd2 = c(0, 1, 3), rare_advantage = c(.1, .7, 1, 1.3), EP = c(500000), e21 = c(0, .75, 1), e12 = c(0, .75, 1, 1.5), beefluct = c('none', 'independent', 'plant-based'), bee_plant_ratio = c(.001))
+attach(run_beesim_inputs)
 
 s <- proc.time()
 cl <- makeCluster(4)
 registerDoParallel(cl)
-bee_output <- foreach(i=1:4) %dopar% run_beesim(bee_logmean1, bee_logmean2, bee_logsd1, bee_logsd2,
-                                                rare_advantage, EP, e21, e12, beefluct, bee_plant_ratio)
+bee_output <- foreach(i=1:4) %dopar% run_beesim(bee_logmean1 = bee_logmean1, bee_logmean2 = bee_logmean2,
+                                                bee_logsd1 = bee_logsd1, bee_logsd2 = bee_logsd2,
+                                                rare_advantage = rare_advantage, EP = EP, e21 = e21, e12 = e12,
+                                                beefluct = beefluct, bee_plant_ratio = bee_plant_ratio)
 stopCluster(cl)
 elapsed <- proc.time() - s
+
+save(bee_output, file = "/Users/JacobSocolar/Dropbox/Work/Beesim_fullrun/bee_output.Rdata")
