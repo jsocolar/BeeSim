@@ -133,7 +133,7 @@ beesim <- function(bee_logmeans=c(0,0), bee_logsds=c(0,0), bee_mean_abunds=c(250
           K[i] <- bee_plant_ratio * weighted.mean(x = c(plant_timeseries$plant1[y], plant_timeseries$plant2[y]),
                                        w = c(exp(bee_logmeans[i]), exp(-bee_logmeans[i])))
           r[i] <- r_times_k / K[i]
-          bee_timeseries[y+1, 2:3] <- ceiling(bee_abunds[i] * exp(r[i] * (K[i] - sum(bee_abunds))))
+          bee_timeseries[y+1, i+1] <- ceiling(bee_abunds[i] * exp(r[i] * (K[i] - sum(bee_abunds))))
         }
       }
     
