@@ -89,6 +89,6 @@ bee_output <- foreach(i=1:4) %dopar% run_beesim(bee_logmean1 = run_beesim_inputs
 parallel::stopCluster(cl)                # Closing down our cluster
 elapsed <- proc.time() - s               # how long the job took
 
-# save output.  IMPORTANT: DO NOT FORGEET TO CHANGE FILENAME WHEN USING DIFFERENT PARAMETER INPUTS.  OTHERWISE
+# save output.  IMPORTANT: DO NOT FORGET TO CHANGE FILENAME WHEN USING DIFFERENT PARAMETER INPUTS. OTHERWISE
 #                          YOU'LL OVERWRITE THE OLD SIMULATIONS!
 save(bee_output, file = "/Users/JacobSocolar/Dropbox/Work/Beesim_fullrun/bee_output.Rdata")
